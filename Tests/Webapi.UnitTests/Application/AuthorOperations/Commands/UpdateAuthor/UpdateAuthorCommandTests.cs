@@ -32,7 +32,7 @@ namespace Application.AuthorOperations.Commands.UpdateAuthor
         [Fact]
         public void WhenAlreadyExistAuthorNameIsGiven_InvalidOperationException_ShouldBeReturn()
         {
-            var author1 = new Author { Name = "WhenAlreadyExistAuthorNameIsGiven_InvalidOperationException_ShouldBeReturn" };
+            var author1 = new Author { Name = "AuthorName" };
             var author2 = new Author { Name = "TestAuthor" };
             _context.Authors.AddRange(author1, author2);
             _context.SaveChanges();

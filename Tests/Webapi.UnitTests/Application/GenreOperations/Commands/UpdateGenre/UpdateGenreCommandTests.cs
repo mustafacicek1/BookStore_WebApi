@@ -33,7 +33,7 @@ namespace Application.GenreOperations.Commands.UpdateGenre
         [Fact]
         public void WhenAlreadyExistGenreNameIsGiven_InvalidOperationException_ShouldBeReturn()
         {
-            var genre1 = new Genre { Name = "WhenAlreadyExistGenreNameIsGiven_InvalidOperationException_ShouldBeReturn" };
+            var genre1 = new Genre { Name = "GenreName" };
             var genre2 = new Genre { Name = "TestGenre" };
             _context.Genres.AddRange(genre1, genre2);
             _context.SaveChanges();
