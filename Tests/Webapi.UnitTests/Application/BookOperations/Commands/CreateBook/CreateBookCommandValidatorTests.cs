@@ -5,17 +5,17 @@ using Xunit;
 
 namespace Application.BookOperations.Commands.CreateBook
 {
-    public class CreateBookCommandValidatorTests : IClassFixture<CommonTestFixture>
+    public class CreateBookCommandValidatorTests
     {
         [Theory]
-        [InlineData("Lord Of The Rings", 0, 0, 0)]
-        [InlineData("Lord Of The Rings", 1, 0, 0)]
-        [InlineData("Lord Of The Rings", 0, 1, 0)]
-        [InlineData("Lord Of The Rings", 0, 0, 1)]
-        [InlineData("", 0, 0, 0)]
-        [InlineData("", 0, 100, 1)]
-        [InlineData("Lo", 200, -1, 5)]
-        [InlineData("Lord", 1, 0, 1)]
+        [InlineData("", 1, 1, 1)]
+        [InlineData("Lord Of The RingsLord Of The RingsLord Of The", 1, 1, 1)]
+        [InlineData("Lord Of The Rings", 0, 1, 1)]
+        [InlineData("Lord Of The Rings", -5, 1, 1)]
+        [InlineData("Lord Of The Rings", 1, 0, 1)]
+        [InlineData("Lord Of The Rings", 1, -3, 1)]
+        [InlineData("Lord Of The Rings", 1, 1, 0)]
+        [InlineData("Lord Of The Rings", 1, 1, -10)]
         public void WhenInvalidInputsAreGiven_Validator_ShouldBeReturnErrors(string title, int pageCount, int genreId, int authorId)
         {
             //arrange
@@ -31,7 +31,7 @@ namespace Application.BookOperations.Commands.CreateBook
         }
 
         [Fact]
-        public void WhenDateTimeEqualNowIsGıven_Validator_ShouldBeReturnError()
+        public void WhenDateTimeEqualNowIsGiven_Validator_ShouldBeReturnError()
         {
             //arrange
             CreateBookCommand command = new CreateBookCommand(null, null);
@@ -46,7 +46,7 @@ namespace Application.BookOperations.Commands.CreateBook
         }
 
         [Fact]
-        public void WhenValidInputsAreGıven_Validator_ShouldNotBeReturnError()
+        public void WhenValidInputsAreGiven_Validator_ShouldNotBeReturnError()
         {
             //arrange
             CreateBookCommand command = new CreateBookCommand(null, null);
