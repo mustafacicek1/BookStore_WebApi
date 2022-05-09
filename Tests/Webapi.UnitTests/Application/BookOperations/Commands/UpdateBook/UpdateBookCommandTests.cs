@@ -31,6 +31,23 @@ namespace Application.BookOperations.Commands.UpdateBook
         }
 
         [Fact]
+        public void WhenAlreadyExistBookTitleIsGiven_InvalidOperationException_ShouldBeReturn()
+        {
+            var book1 = new Book { Title = "TestBookTitle" };
+            var book2 = new Book { Title = "TestTitle" };
+            _context.Books.AddRange(book1, book2);
+            _context.SaveChanges();
+
+            UpdateBookCommand command = new UpdateBookCommand(_context);
+            command.BookId = book2.Id;
+            command.Model = new UpdateBookModel { Title = book1.Title };
+
+            FluentActions
+            .Invoking(() => command.Handle())
+            .Should().Throw<InvalidOperationException>().And.Message.Should().Be("Aynı başlığa sahip bir kitap zaten mevcut");
+        }
+
+        [Fact]
         public void WhenValidInputsAreGiven_Book_ShouldBeUpdated()
         {
             //arrange

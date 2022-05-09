@@ -21,6 +21,9 @@ namespace Webapi.Application.BookOperations.Commands.UpdateBook
             if (book is null)
                 throw new InvalidOperationException("Kitap bulunamadı");
 
+            if (_context.Books.Any(b => b.Title.ToLower() == Model.Title.ToLower() && b.Id != BookId))
+                throw new InvalidOperationException("Aynı başlığa sahip bir kitap zaten mevcut");
+
             book.Title = Model.Title != default ? Model.Title : book.Title;
             book.PageCount = Model.PageCount != default ? Model.PageCount : book.PageCount;
             book.PublishDate = Model.PublishDate != default ? Model.PublishDate : book.PublishDate;

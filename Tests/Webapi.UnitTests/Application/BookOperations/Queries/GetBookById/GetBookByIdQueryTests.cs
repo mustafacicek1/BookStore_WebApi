@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using AutoMapper;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
 using TestSetup;
 using Webapi.Application.BookOperations.Queries.GetBookById;
 using Webapi.DbOperations;
@@ -56,15 +55,8 @@ namespace Application.BookOperations.Queries.GetBookById
             FluentActions.Invoking(() => query.Handle()).Invoke();
 
             //assert
-            var book = _context.Books.Include(b => b.Genre).Include(b => b.Author).SingleOrDefault(b => b.Id == model.Id);
+            var book = _context.Books.SingleOrDefault(b => b.Id == model.Id);
             book.Should().NotBeNull();
-            var result = _mapper.Map<BookViewModel>(book);
-            result.Should().NotBeNull();
-            result.Title.Should().Be(model.Title);
-            result.PageCount.Should().Be(model.PageCount);
-            result.PublishDate.Should().Be(model.PublishDate.ToString());
-            result.Genre.Should().Be(model.Genre.Name);
-            result.Author.Should().Be(model.Author.Name);
         }
     }
 }

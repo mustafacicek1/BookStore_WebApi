@@ -8,7 +8,7 @@ namespace Webapi.Application.AuthorOperations.Commands.CreateAuthor
         public CreateAuthorCommandValidator()
         {
             RuleFor(command => command.Model.Name).NotEmpty().MinimumLength(4);
-            RuleFor(command => command.Model.DateOfBirth).LessThan(DateTime.Now);
+            RuleFor(command => command.Model.DateOfBirth.Date).LessThan(DateTime.Now.Date);
         }
     }
 }
